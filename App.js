@@ -6,6 +6,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Landing from "./components/auth/Landing";
 import Register from "./components/auth/Register";
 import firebase from "firebase/app";
+import Login from "./components/auth/Login";
 
 const Stack = createStackNavigator();
 
@@ -36,6 +37,12 @@ export default function App() {
         <Stack.Screen
           name="Register"
           component={Register}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="Login"
+          component={Login}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

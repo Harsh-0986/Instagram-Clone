@@ -3,32 +3,40 @@ import { SafeAreaView } from "react-native";
 import { Input } from "react-native-elements";
 import { Button } from "react-native-elements/dist/buttons/Button";
 import firebase from "firebase";
+import { Alert } from "react-native";
 // Run if there is any error
 // import 'react-native-community/masked-view'
 
-export class Register extends Component {
+export class Login extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       email: "",
       password: "",
-      name: "",
     };
 
-    this.onSignUp = this.onSignUp.bind(this);
+    this.onLogin = this.onLogin.bind(this);
   }
 
-  onSignUp() {
-    const { email, password, name } = this.state;
+  onLogin() {
+    const { email, password } = this.state;
     firebase
       .auth()
-      .createUserWithEmailAndPassword(email, password)
+      .signInWithEmailAndPassword(email, password)
       .then((result) => {
         console.log(result.user);
       })
       .catch((error) => {
-        console.log(error);
+        // console.error(error.message);
+        let title = error.code;
+        let message = error.message;
+        Alert.alert(
+          { title },
+          { message },
+          [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+          { cancelable: false }
+        );
       });
   }
 
@@ -42,10 +50,6 @@ export class Register extends Component {
           alignItems: "center",
         }}
       >
-        <Input
-          placeholder="Name"
-          onChangeText={(name) => this.setState({ name })}
-        />
         <Input
           placeholder="Email"
           onChangeText={(email) => this.setState({ email })}
@@ -62,12 +66,12 @@ export class Register extends Component {
             alignItems: "center",
             justifyContent: "center",
           }}
-          onPress={() => this.onSignUp()}
-          title="Sign Up"
+          onPress={() => this.onLogin()}
+          title="Login"
         />
       </SafeAreaView>
     );
   }
 }
 
-export default Register;
+export default Login;
