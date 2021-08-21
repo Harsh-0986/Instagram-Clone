@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { SafeAreaView } from "react-native";
 import { Input } from "react-native-elements";
 import { Button } from "react-native-elements/dist/buttons/Button";
+import firebase from "firebase";
+// Run if there is any error
+// import 'react-native-community/masked-view'
 
 export class Register extends Component {
   constructor(props) {
@@ -16,7 +19,18 @@ export class Register extends Component {
     this.onSignUp = this.onSignUp.bind(this);
   }
 
-  onSignUp() {}
+  onSignUp() {
+    const { email, password, name } = this.state;
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then((result) => {
+        console.log(result.user);
+      })
+      .catch((error) => {
+        error(error);
+      });
+  }
 
   render() {
     return (
