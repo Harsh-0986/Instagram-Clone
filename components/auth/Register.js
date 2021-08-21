@@ -24,8 +24,15 @@ export class Register extends Component {
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then((result) => {
-        console.log(result.user);
+      .then(() => {
+        firebase
+          .firestore()
+          .collection("users")
+          .doc(firebase.auth().currentUser.uid)
+          .set({
+            name: name,
+            email: email,
+          });
       })
       .catch((error) => {
         console.log(error);
