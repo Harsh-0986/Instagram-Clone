@@ -8,9 +8,14 @@ import Register from "./components/auth/Register";
 import firebase from "firebase/app";
 import Login from "./components/auth/Login";
 import Svg, { Path } from "react-native-svg";
+import { Provider } from "react-redux";
+import { applyMiddleware, createStore } from "redux";
+import { rootReducer } from "./redux/reducers";
+import thunk from "redux-thunk";
+import Main from "./components/Main";
 
 const Stack = createStackNavigator();
-
+const store = createStore(rootReducer, applyMiddleware(thunk));
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyATNDh1d2RmfUvflBtBpCtDRayBdDtxleI",
@@ -90,9 +95,9 @@ export class App extends Component {
     }
 
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text>Logged</Text>
-      </View>
+      <Provider store={store}>
+        <Main />
+      </Provider>
     );
   }
 }
