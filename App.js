@@ -10,7 +10,7 @@ import Login from "./components/auth/Login";
 import Svg, { Path } from "react-native-svg";
 import { Provider } from "react-redux";
 import { applyMiddleware, createStore } from "redux";
-import { rootReducer } from "./redux/reducers";
+import rootReducer from "./redux/reducers";
 import thunk from "redux-thunk";
 import Main from "./components/Main";
 

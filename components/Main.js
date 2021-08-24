@@ -6,15 +6,25 @@ import { bindActionCreators } from "redux";
 import { fetchUser } from "../redux/actions";
 
 export class Main extends Component {
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.fetchUser();
+  }
   render() {
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Logged</Text>
-    </View>;
+    const { currentUser } = this.props;
+
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text>{currentUser?.name} is logged</Text>
+      </View>
+    );
   }
 }
+
+const mapStateToProps = (store) => ({
+  currentUser: store.userState.currentUser,
+});
 
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({ fetchUser }, dispatch);
 
-export default connect(null, mapDispatchToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
