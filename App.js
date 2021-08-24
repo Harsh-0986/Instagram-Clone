@@ -10,6 +10,7 @@ import Landing from "./components/auth/Landing";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Main from "./components/Main";
+import Add from "./components/main/Add";
 import rootReducer from "./redux/reducers";
 
 const Stack = createStackNavigator();
@@ -99,6 +100,11 @@ export class App extends Component {
             <Stack.Screen
               name="Main"
               component={Main}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Add"
+              component={Add}
               options={{ headerShown: false }}
             />
           </Stack.Navigator>

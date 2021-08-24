@@ -16,13 +16,17 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
 
+const Empty = () => {
+  return null;
+};
+
 export class Main extends Component {
   componentDidMount() {
     this.props.fetchUser();
   }
   render() {
     return (
-      <Tab.Navigator>
+      <Tab.Navigator initialRouteName="Home">
         <Tab.Screen
           name="Home"
           component={Feed}
@@ -44,8 +48,15 @@ export class Main extends Component {
           }}
         />
         <Tab.Screen
-          name="Add"
-          component={Add}
+          name="New Post"
+          component={Empty}
+          listeners={({ navigation }) => ({
+            tabPress: (event) => {
+              event.preventDefault();
+
+              navigation.navigate("Add");
+            },
+          })}
           options={{
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="add-circle" size={size} color={color} />
