@@ -1,18 +1,16 @@
-import { StatusBar } from "expo-status-bar";
-import React, { Component } from "react";
-import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import Landing from "./components/auth/Landing";
-import Register from "./components/auth/Register";
 import firebase from "firebase/app";
-import Login from "./components/auth/Login";
-import Svg, { Path } from "react-native-svg";
+import React, { Component } from "react";
+import { Text, View } from "react-native";
 import { Provider } from "react-redux";
 import { applyMiddleware, createStore } from "redux";
-import rootReducer from "./redux/reducers";
 import thunk from "redux-thunk";
+import Landing from "./components/auth/Landing";
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
 import Main from "./components/Main";
+import rootReducer from "./redux/reducers";
 
 const Stack = createStackNavigator();
 const store = createStore(rootReducer, applyMiddleware(thunk));
@@ -96,7 +94,15 @@ export class App extends Component {
 
     return (
       <Provider store={store}>
-        <Main />
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Main">
+            <Stack.Screen
+              name="Main"
+              component={Main}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
       </Provider>
     );
   }
