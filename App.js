@@ -12,18 +12,27 @@ import Register from "./components/auth/Register";
 import Main from "./components/Main";
 import Add from "./components/main/Add";
 import rootReducer from "./redux/reducers";
+import {
+  API_KEY,
+  AUTH_DOMAIN,
+  PROJECT_ID,
+  STORAGE_BUCKET,
+  MESSAGING_SENDER_ID,
+  APP_ID,
+  MEASUREMENT_ID,
+} from "@env";
 
 const Stack = createStackNavigator();
 const store = createStore(rootReducer, applyMiddleware(thunk));
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyATNDh1d2RmfUvflBtBpCtDRayBdDtxleI",
-  authDomain: "ultronic-insta-7a778.firebaseapp.com",
-  projectId: "ultronic-insta-7a778",
-  storageBucket: "ultronic-insta-7a778.appspot.com",
-  messagingSenderId: "158217758017",
-  appId: "1:158217758017:web:4c0a7147245325be686dc0",
-  measurementId: "G-YZDF5Y3BLN",
+  apiKey: API_KEY,
+  authDomain: AUTH_DOMAIN,
+  projectId: PROJECT_ID,
+  storageBucket: STORAGE_BUCKET,
+  messagingSenderId: MESSAGING_SENDER_ID,
+  appId: APP_ID,
+  measurementId: MEASUREMENT_ID,
 };
 
 if (firebase.apps.length === 0) {
