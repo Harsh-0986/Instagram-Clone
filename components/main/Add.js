@@ -3,9 +3,12 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Camera } from "expo-camera";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Button } from "react-native-elements";
+import { Image } from "react-native";
 
 export default function Add() {
   const [hasPermission, setHasPermission] = useState(null);
+  const [image, setImage] = useState(null);
+  const [camera, setCamera] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
 
   useEffect(() => {
@@ -14,6 +17,13 @@ export default function Add() {
       setHasPermission(status === "granted");
     })();
   }, []);
+
+  const takePicture = async () => {
+    if (camera) {
+      const data = await camera.takePictureAsync(null);
+      setImage(data.uri);
+    }
+  };
 
   if (hasPermission === null) {
     return <View />;
@@ -24,7 +34,12 @@ export default function Add() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.cameraContainer}>
-        <Camera style={styles.fixedRatio} type={type} ratio={"1:1"} />
+        <Camera
+          style={styles.fixedRatio}
+          type={type}
+          ratio={"1:1"}
+          ref={(ref) => setCamera(ref)}
+        />
       </View>
       <Button
         // style={styles.button}
@@ -37,6 +52,14 @@ export default function Add() {
           );
         }}
       ></Button>
+      <Button
+        // TODO : Style The button
+        title="Take Picture"
+        onPress={() => {
+          takePicture();
+        }}
+      />
+      {image && <Image source={{ uri: image }} style={{ flex: 1 }} />}
     </SafeAreaView>
   );
 }
