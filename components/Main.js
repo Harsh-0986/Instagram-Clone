@@ -20,7 +20,7 @@ export class Main extends Component {
   }
   render() {
     return (
-      <Tab.Navigator initialRouteName="Home">
+      <Tab.Navigator initialRouteName="Home" labeled={false}>
         <Tab.Screen
           name="Home"
           component={Feed}
