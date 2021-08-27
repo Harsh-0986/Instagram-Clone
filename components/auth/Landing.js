@@ -9,10 +9,10 @@ export default function Landing({ navigation }) {
         titleStyle={{ width: 100 }}
         style={{
           minWidth: 80,
-          flex: 1,
+
           justifyContent: "center",
           alignItems: "center",
-          height: 50,
+          // height: 50,
           padding: 10,
         }}
         title="Register"
@@ -23,7 +23,6 @@ export default function Landing({ navigation }) {
         titleStyle={{ width: 100 }}
         style={{
           minWidth: 80,
-          flex: 1,
           justifyContent: "center",
           alignItems: "center",
           height: 50,

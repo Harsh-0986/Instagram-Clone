@@ -6,7 +6,7 @@ import { Button } from "react-native-elements";
 import { Image } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
-export default function Add() {
+export default function Add({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [galleryPermission, setGalleryPermission] = useState(null);
   const [image, setImage] = useState(null);
@@ -32,6 +32,7 @@ export default function Add() {
     if (camera) {
       const data = await camera.takePictureAsync(null);
       setImage(data.uri);
+      navigation.navigate("Preview", { image: data.uri });
     }
   };
 
@@ -43,10 +44,9 @@ export default function Add() {
       quality: 1,
     });
 
-    console.log(result);
-
     if (!result.cancelled) {
       setImage(result.uri);
+      navigation.navigate("Preview", { image: result.uri });
     }
   };
 
@@ -93,7 +93,6 @@ export default function Add() {
           pickImage();
         }}
       />
-      {image && <Image source={{ uri: image }} style={{ flex: 1 }} />}
     </SafeAreaView>
   );
 }

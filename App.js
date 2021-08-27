@@ -21,6 +21,8 @@ import {
   APP_ID,
   MEASUREMENT_ID,
 } from "@env";
+import Preview from "./components/main/Preview";
+import Save from "./components/main/Save";
 
 const Stack = createStackNavigator();
 const store = createStore(rootReducer, applyMiddleware(thunk));
@@ -114,6 +116,19 @@ export class App extends Component {
             <Stack.Screen
               name="Add"
               component={Add}
+              navigation={this.props.navigation}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Preview"
+              // navigation={this.props.navigation}
+              component={Preview}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              navigation={this.props.navigation}
+              name="Save"
+              component={Save}
               options={{ headerShown: false }}
             />
           </Stack.Navigator>
