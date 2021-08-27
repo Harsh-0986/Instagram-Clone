@@ -21,7 +21,7 @@ export default function Save(props) {
       .put(blob);
 
     const taskProgress = (snapshot) => {
-      console.log(`Transferred : ${snapshot.bytesTransferred} `);
+      // console.log(`Transferred : ${snapshot.bytesTransferred} `);
     };
 
     const taskCompleted = () => {
