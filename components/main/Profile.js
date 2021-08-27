@@ -1,5 +1,6 @@
 import React from "react";
-import { Text } from "react-native";
+import { View } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import { SafeAreaView } from "react-native";
 import { connect } from "react-redux";
 
@@ -8,11 +9,26 @@ function Profile(props) {
   console.log(currentUser);
   console.log(posts);
   return (
-    <SafeAreaView>
-      <Text>Profile</Text>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.profile}>
+        <Text>{currentUser.name}</Text>
+        <Text>{currentUser.email}</Text>
+      </View>
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 20,
+  },
+  profile: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 
 const mapStateToProps = (store) => ({
   currentUser: store.userState.currentUser,
