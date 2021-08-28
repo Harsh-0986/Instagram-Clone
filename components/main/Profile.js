@@ -7,11 +7,13 @@ import { connect } from "react-redux";
 import { Dimensions } from "react-native";
 import { useEffect } from "react";
 import firebase from "firebase";
+import { Button } from "react-native-elements";
 require("firebase/firestore");
 
 function Profile(props) {
   const [userPosts, setUserPosts] = useState([]);
   const [user, setUser] = useState(null);
+  const [following, setFollowing] = useState(false);
 
   useEffect(() => {
     const { currentUser, posts } = props;
@@ -57,11 +59,62 @@ function Profile(props) {
     }
   }, [props.route.params.uid]);
 
+  // For following a user
+  const onFollow = () => {
+    firebase
+      .firestore()
+      .collection("following")
+      .doc(firebase.auth().currentUser.uid)
+      .collection("userFollowing")
+      .doc(props.route.params.uid)
+      .set({});
+  };
+
+  // For un following a user
+  const onUnfollow = () => {
+    firebase
+      .firestore()
+      .collection("following")
+      .doc(firebase.auth().currentUser.uid)
+      .collection("userFollowing")
+      .doc(props.route.params.uid)
+      .delete();
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.profile}>
         <Text>{user?.name}</Text>
         <Text>{user?.email}</Text>
+
+        {props.route.params.uid !== firebase.auth().currentUser.uid ? (
+          <View>
+            {following ? (
+              <Button
+                style={{
+                  marginTop: 15,
+                  marginHorizontal: 30,
+                  border: "0.5px solid black",
+                }}
+                buttonStyle={{
+                  backgroundColor: "rgb(0 0 0 / 0%)",
+                }}
+                titleStyle={{ color: "black" }}
+                title="Following"
+                onPress={() => onUnfollow()}
+              />
+            ) : (
+              <Button
+                style={{
+                  marginTop: 15,
+                  marginHorizontal: 30,
+                }}
+                title="Follow"
+                onPress={() => onFollow()}
+              />
+            )}
+          </View>
+        ) : null}
       </View>
       <View style={styles.postsGallery}>
         {Platform.OS !== "web" && (
