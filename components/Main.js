@@ -4,7 +4,11 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Feed from "../components/main/Feed";
-import { fetchUser, fetchUserPosts } from "../redux/actions";
+import {
+  fetchUser,
+  fetchUserPosts,
+  fetchUserFollowing,
+} from "../redux/actions";
 import Profile from "./main/Profile";
 import Search from "./main/Search";
 import firebase from "firebase";
@@ -19,6 +23,7 @@ export class Main extends Component {
   componentDidMount() {
     this.props.fetchUser();
     this.props.fetchUserPosts();
+    this.props.fetchUserFollowing();
   }
   render() {
     return (
@@ -90,6 +95,9 @@ const mapStateToProps = (store) => ({
 });
 
 const mapDispatchToProps = (dispatch) =>
-  bindActionCreators({ fetchUser, fetchUserPosts }, dispatch);
+  bindActionCreators(
+    { fetchUser, fetchUserPosts, fetchUserFollowing },
+    dispatch
+  );
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
