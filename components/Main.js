@@ -41,6 +41,7 @@ export class Main extends Component {
             ),
             headerShown: false,
           }}
+          navigation={this.props.navigation}
         />
         <Tab.Screen
           name="New Post"
