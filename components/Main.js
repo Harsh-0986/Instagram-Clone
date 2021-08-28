@@ -7,6 +7,7 @@ import Feed from "../components/main/Feed";
 import { fetchUser, fetchUserPosts } from "../redux/actions";
 import Profile from "./main/Profile";
 import Search from "./main/Search";
+import firebase from "firebase";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -62,6 +63,15 @@ export class Main extends Component {
         />
         <Tab.Screen
           name="Profile"
+          listeners={({ navigation }) => ({
+            tabPress: (event) => {
+              event.preventDefault();
+
+              navigation.navigate("Profile", {
+                uid: firebase.auth().currentUser.uid,
+              });
+            },
+          })}
           component={Profile}
           options={{
             tabBarIcon: ({ color, size }) => (
